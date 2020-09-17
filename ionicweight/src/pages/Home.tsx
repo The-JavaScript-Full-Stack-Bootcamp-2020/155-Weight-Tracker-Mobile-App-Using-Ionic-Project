@@ -10,18 +10,18 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
-  useIonViewWillEnter
+  useIonViewWillEnter,
+  IonButtons,
+  IonButton
 } from '@ionic/react';
 import './Home.css';
 
-const Home: React.FC = () => {
+interface HomeProps {
+  measures: Array<Measure>,
+  setMeasures: Function
+}
 
-  const [measures, setMeasures] = useState<Measure[]>([]);
-
-  useIonViewWillEnter(() => {
-    const msgs = getMeasures();
-    setMeasures(msgs);
-  });
+const Home: React.FC<HomeProps> = ({measures, setMeasures}) => {
 
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {
@@ -34,6 +34,9 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Measurements</IonTitle>
+          <IonButtons slot='end'>
+            <IonButton routerLink={`/add`}>Add</IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -43,14 +46,18 @@ const Home: React.FC = () => {
 
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">
-              Inbox
-            </IonTitle>
+            <IonTitle size="large">Inbox</IonTitle>
           </IonToolbar>
         </IonHeader>
 
         <IonList>
-          {measures.map( m => <MeasureListItem key={m.id} measure={m} setMeasure={setMeasures} measures={measures} />)}
+          {measures.map( (m) => (
+            <MeasureListItem 
+              key={m.id} 
+              measure={m} 
+              setMeasure={setMeasures} 
+              measures={measures} />
+          ))}
         </IonList>
       </IonContent>
     </IonPage>

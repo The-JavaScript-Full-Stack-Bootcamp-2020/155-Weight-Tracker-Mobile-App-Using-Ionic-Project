@@ -7,12 +7,12 @@ export interface Measure {
 const measures: Measure[] = [
   {
     weight: '70',
-    date: 'Aug 10',
+    date: '10 Aug',
     id: 0,
   },
   {
     weight: '71',
-    date: 'Aug 16',
+    date: '16 Aug',
     id: 1,
   },
 ];
